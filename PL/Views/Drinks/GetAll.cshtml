@@ -1,0 +1,80 @@
+﻿@model ML.Drink
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<title>Consumo de API thecocktaildb</title>
+
+<h5>TConsumo de API thecocktaildb</h5>
+<p>
+    En este modulo puedes visualizar a los cocteles y tener la opcion de buscar por nombre y ingrediente
+</p>
+
+<div class="container-fluid">
+
+    @using (Html.BeginForm("GetAll", "Drinks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+
+            <div class="col-md-3">
+
+                @Html.LabelFor(model => model.strDrink)
+
+                @Html.TextBoxFor(model => model.strDrink, new { @class = "form-control", @id = "txtstrDrink", @placeholder = "Ej.Mojito"})
+
+                @Html.ValidationMessageFor(model => model.strDrink)
+
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Ingredient)
+
+                @Html.TextBoxFor(model => model.Ingredient, new { @class = "form-control form-control-sm", @id = "txtIngrediente", @placeholder = "Ej.Limon"})
+
+                @Html.ValidationMessageFor(model => model.Ingredient)
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="submit" value="Buscar" class="btn btn-info" />
+
+            </div>
+
+        </div>
+    }
+</div>
+
+
+
+<div class="row">
+    @foreach (ML.Drink drink in Model.drinks)
+    {
+
+        <div class="card" style="width: 18rem;">
+            <img class=" card-img-top">
+            <img src=@drink.strDrinkThumb width="150px" height="150px">
+
+            <h5 class="card-title">NOMBRE: @drink.strDrink</h5>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Ingrediente:</li>
+                    <li class="list-group-item"> @drink.strIngredient1  <img src=" @drink.ingredients" width="50px" height="50px"></li>
+                    <li class="list-group-item"> @drink.strIngredient2  <img src=" www.thecocktaildb.com/images/ingredients" width="50px" height="50px"></li>
+                    <li class="list-group-item"> @drink.strIngredient3  <img src=" www.thecocktaildb.com/images/ingredients" width="50px" height="50px"></li>
+                    <li class="list-group-item"> @drink.strIngredient4  <img src=" www.thecocktaildb.com/images/ingredients" width="50px" height="50px"></li>
+                    <li class="list-group-item"> @drink.strIngredient5  <img src=" www.thecocktaildb.com/images/ingredients" width="50px" height="50px"></li>
+                    <li class="list-group-item">Preparacion: @drink.strInstructions</li>
+
+
+                </ul>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+
