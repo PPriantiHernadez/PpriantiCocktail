@@ -31,7 +31,9 @@ namespace ML
         public object strInstructionsZHHANT { get; set; }
         public string strDrinkThumb { get; set; }
         public string Ingredient { get; set; }
-        public string strIngredient1 { get; set; }
+
+        
+        public string  strIngredient1 { get; set; }
         public string strIngredient2 { get; set; }
         public string strIngredient3 { get; set; }
         public string strIngredient4 { get; set; }
@@ -65,6 +67,10 @@ namespace ML
         public object strImageAttribution { get; set; }
         public string strCreativeCommonsConfirmed { get; set; }
         public string dateModified { get; set; }
+
+        public string Imagen { get; set; }
+
+       
 
         public List<object> drinks { get; set; }
         //public List<object> ingredients { get; set; }

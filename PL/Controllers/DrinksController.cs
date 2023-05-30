@@ -28,10 +28,26 @@ namespace PL.Controllers
                     var readTask = result.Content.ReadAsAsync<dynamic>();
                     readTask.Wait();
 
-                    foreach (var resultItem in readTask.Result.drinks)
+                    foreach (dynamic resultItem in readTask.Result.drinks)
                     {
-                        ML.Drink resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Drink>(resultItem.ToString());
+
+                        ML.Drink resultItemList = new ML.Drink();
+                        resultItemList.idDrink = resultItem.idDrink;
+                        resultItemList.strDrinkThumb = resultItem.strDrinkThumb;
+                        resultItemList.strDrink = resultItem.strDrink;
+                        resultItemList.strCategory = resultItem.strCategory;
+                        resultItemList.strIngredient1 = resultItem.strIngredient1;
+                        resultItemList.strIngredient2 = resultItem.strIngredient2;
+                        resultItemList.strIngredient3 = resultItem.strIngredient3;
+                        resultItemList.strIngredient4 = resultItem.strIngredient4;
+                        resultItemList.strIngredient1 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient1 + "-Small.png";
+                        resultItemList.strIngredient2 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient2 + "-Small.png";
+                        resultItemList.strIngredient3 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient3 + "-Small.png";
+                        resultItemList.strIngredient4 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient4 + "-Small.png";
+                        resultItemList.strIngredient5 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient5 + "-Small.png";
+                        resultItemList.strInstructions = resultItem.strInstructions;
                         drink.drinks.Add(resultItemList);
+
                     }
                 }
             }
@@ -62,6 +78,13 @@ namespace PL.Controllers
                     foreach (var resultItem in readTask.Result.drinks)
                     {
                         ML.Drink resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Drink>(resultItem.ToString());
+
+                        drink.strIngredient1 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient1 + "-Small.png";
+                        drink.strIngredient2 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient2 + "-Small.png";
+                        drink.strIngredient3 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient3 + "-Small.png";
+                        drink.strIngredient4 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient4 + "-Small.png";
+                        drink.strIngredient5 = "https://www.thecocktaildb.com/images/ingredients/" + resultItemList.strIngredient5 + "-Small.png";
+
                         drink.drinks.Add(resultItemList);
                     }
                 }
@@ -69,7 +92,6 @@ namespace PL.Controllers
             return View(drink);
         }
 
-    
         private readonly HttpClient _httpClient;
 
         [HttpPost]
@@ -81,11 +103,16 @@ namespace PL.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadAsAsync<dynamic>();
+                ML.Drink drink = new ML.Drink();
+
+            
                 return Json(result);
+
             }
 
             return BadRequest();
         }
+
 
 
     }
